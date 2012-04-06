@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Week lunch overview</title>
+</head>
+<body>
+
+<h2>These are the lunches this and next week:</h2>
+<table cellspacing="2">
+<style type="text/css">
+<!--
+tr:nth-child(odd)    { background-color:#eee; }
+tr:nth-child(even)    { background-color:#fff; }
+-->
+</style>
+<tr style="height:20px">
+<th style="width:90px">Weekday</th>
+<th style="width:50px">Date</th>
+<th style="width:50px">Time</th>
+<th style="width:80px">Cook</th>
+<th style="width:300px">Meal</th>
+<th style="width:30px"/>
+</tr>
+{% for lunch in lunch_list %}
+<tr style="height:30px">
+<td>{{ lunch.str_weekday }}</td>
+<td>{{ lunch.str_date }}</td>
+<td>{{ lunch.str_time }}</td>
+{% if not lunch.cook %}
+<td>nobody</td><td>{{ lunch.meal }}</td><td><small><a href="new_lunch/{{ lunch.date.isoformat }}">new</a></small></td></td>
+{% endif %}
+{% if lunch.cook %}
+<td>{{ lunch.cook }}</td><td>{{ lunch.meal }}</td><td><small><a href="edit_lunch/{{ lunch.pk }}">edit</a></small></td></td>
+{% endif %}
+{% endfor %}
+</table>
+
+</body>
+</html>
