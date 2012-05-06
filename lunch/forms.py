@@ -5,7 +5,7 @@ from django.forms import extras
 from widgets import SelectTimeWidget
 
 class LunchForm(ModelForm):
-    date = DateField(widget=extras.SelectDateWidget)
-    time = TimeField(widget=SelectTimeWidget(minute_step=5))
+    date = DateField()
+    time = TimeField()
     class Meta:
         model = Lunch

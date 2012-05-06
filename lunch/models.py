@@ -1,10 +1,12 @@
 from django.db import models
+from datetime import date
 
 class Lunch(models.Model):
     date = models.DateField()
     time = models.TimeField()
     cook = models.CharField(max_length=30)
     meal = models.CharField(max_length=200)
+    where = models.CharField(max_length=30)
     
     def __str__(self):
         description  = self.cook + " cooks on "
@@ -21,15 +23,12 @@ class Lunch(models.Model):
         
     def str_time(self):
         return self.time.strftime("%H:%M")
-    
-#    def save(self, *args, **kwargs):
-#        if self.pk:
-#            kwargs['force_update'] = True
-#            kwargs['force_insert'] = False
-#        else:
-#            kwargs['force_insert'] = True
-#            kwargs['force_update'] = False
-#        return super(Lunch, self).save(*args, **kwargs)
+        
+    def is_today(self):
+        return date.today()==self.date
+        
+    def is_weekend(self):
+        return self.date.isoweekday()>5
     
     class Meta:
         ordering = ["date","time"]
